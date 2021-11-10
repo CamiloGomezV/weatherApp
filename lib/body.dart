@@ -13,12 +13,14 @@ class _BodyState extends State<Body> {
   final _dataService = DataService();
   List<Color> _background = [Colors.blue, Colors.yellow.shade600, Colors.black];
   WeatherResponse _response;
+  Icon fav = Icon(Icons.favorite_border);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
+        alignment: Alignment.center,
         height: size.height,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -71,12 +73,22 @@ class _BodyState extends State<Body> {
                   padding: EdgeInsets.all(40),
                   child: Column(
                     children: [
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            if (fav == Icon(Icons.favorite_border))
+                              fav = Icon(Icons.favorite);
+                            else
+                              fav = Icon(Icons.favorite_border);
+                            print('object');
+                          });
+                        },
+                        icon: fav,
+                      ),
                       Image.network(_response.iconUrl),
                       Text(_response.weatherInfo.description,
                           style: TextStyle(color: _background[2])),
-                      SizedBox(
-                        height: 20,
-                      ),
+                      SizedBox(height: 50),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -91,7 +103,7 @@ class _BodyState extends State<Body> {
                               Text(
                                 '${_response.tempInfo.temperature}°',
                                 style: TextStyle(
-                                    fontSize: 40, color: _background[2]),
+                                    fontSize: 30, color: _background[2]),
                               ),
                               SizedBox(height: 50),
                               Text(
@@ -120,7 +132,7 @@ class _BodyState extends State<Body> {
                               Text(
                                 '${_response.feelsInfo.feelsLike}°',
                                 style: TextStyle(
-                                    fontSize: 40, color: _background[2]),
+                                    fontSize: 30, color: _background[2]),
                               ),
                               SizedBox(height: 50),
                               Text(

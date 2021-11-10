@@ -147,15 +147,13 @@ class _BodyState extends State<Body> {
                                     fontSize: 30, color: _background[2]),
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
+                      SizedBox(height: 30),
                     ],
                   ),
                 ),
-              SizedBox(
-                height: 50,
-              )
             ],
           ),
         ),

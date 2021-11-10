@@ -75,13 +75,8 @@ class _BodyState extends State<Body> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          setState(() {
-                            if (fav == Icon(Icons.favorite_border))
-                              fav = Icon(Icons.favorite);
-                            else
-                              fav = Icon(Icons.favorite_border);
-                            print('object');
-                          });
+                          _fav();
+                          print('object');
                         },
                         icon: fav,
                       ),
@@ -161,9 +156,23 @@ class _BodyState extends State<Body> {
 
   void _search() async {
     final response = await _dataService.getWeather(_cityTextController.text);
-    setState(() {
-      _response = response;
-      _background = getBackgroundColor(_response.weatherInfo.icon);
-    });
+    setState(
+      () {
+        _response = response;
+        _background = getBackgroundColor(_response.weatherInfo.icon);
+      },
+    );
+  }
+
+  void _fav() {
+    setState(
+      () {
+        if (fav == Icon(Icons.favorite_border))
+          fav = Icon(Icons.favorite);
+        else
+          fav = Icon(Icons.favorite_border);
+        print('object');
+      },
+    );
   }
 }

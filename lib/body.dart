@@ -14,6 +14,7 @@ class _BodyState extends State<Body> {
   List<Color> _background = [Colors.blue, Colors.yellow.shade600, Colors.black];
   WeatherResponse _response;
   Icon fav = Icon(Icons.favorite_border);
+  bool aux = true;
 
   @override
   Widget build(BuildContext context) {
@@ -73,12 +74,16 @@ class _BodyState extends State<Body> {
                   padding: EdgeInsets.all(40),
                   child: Column(
                     children: [
-                      IconButton(
-                        onPressed: () {
-                          _fav();
-                          print('object');
-                        },
-                        icon: fav,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              fav = _fav(fav);
+                            },
+                            icon: fav,
+                          ),
+                        ],
                       ),
                       Image.network(_response.iconUrl),
                       Text(_response.weatherInfo.description,
@@ -164,15 +169,18 @@ class _BodyState extends State<Body> {
     );
   }
 
-  void _fav() {
+  Icon _fav(fav) {
     setState(
       () {
-        if (fav == Icon(Icons.favorite_border))
+        if (aux) {
           fav = Icon(Icons.favorite);
-        else
+          aux = !aux;
+        } else {
           fav = Icon(Icons.favorite_border);
-        print('object');
+          aux = !aux;
+        }
       },
     );
+    return fav;
   }
 }

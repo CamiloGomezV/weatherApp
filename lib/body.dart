@@ -68,10 +68,11 @@ class _BodyState extends State<Body> {
               ),
               if (_response != null)
                 Container(
+                  width: size.width - 60,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: _background[1]),
-                  padding: EdgeInsets.all(40),
+                  padding: EdgeInsets.all(10),
                   child: Column(
                     children: [
                       Row(
@@ -152,6 +153,9 @@ class _BodyState extends State<Body> {
                     ],
                   ),
                 ),
+              SizedBox(
+                height: 50,
+              )
             ],
           ),
         ),

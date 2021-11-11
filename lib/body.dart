@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'backgroundcolor.dart';
 import 'package:day11_weather_app/data_service.dart';
 import 'models.dart';
+import 'DB.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -15,6 +16,7 @@ class _BodyState extends State<Body> {
   WeatherResponse _response;
   Icon fav = Icon(Icons.favorite_border);
   bool aux = true;
+  int selectedId;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +81,16 @@ class _BodyState extends State<Body> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           IconButton(
-                            onPressed: () {
+                            onPressed: () async {
+                              selectedId != null
+                                  ? await DatabaseHelper.instance.update(
+                                      Cities(
+                                          id: selectedId,
+                                          name: _cityTextController.text),
+                                    )
+                                  : await DatabaseHelper.instance.add(
+                                      Cities(name: _cityTextController.text),
+                                    );
                               fav = _fav(fav);
                             },
                             icon: fav,

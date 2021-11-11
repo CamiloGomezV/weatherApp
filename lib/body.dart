@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'backgroundcolor.dart';
 import 'package:day11_weather_app/data_service.dart';
+import 'backgroundcolor.dart';
 import 'models.dart';
 import 'DB.dart';
 
@@ -10,9 +10,13 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final _cityTextController = TextEditingController();
-  final _dataService = DataService();
-  List<Color> _background = [Colors.blue, Colors.yellow.shade600, Colors.black];
+  final cityTextController = TextEditingController();
+  final dataService = DataService();
+  List<Color> _background = [
+    Colors.cyan.shade800,
+    Colors.cyan.shade800,
+    Colors.white
+  ];
   WeatherResponse _response;
   Icon fav = Icon(Icons.favorite_border);
   bool aux = true;
@@ -42,6 +46,16 @@ class _BodyState extends State<Body> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      setState(() {});
+                    },
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: _background[2],
+                    ),
+                  ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 50),
                     child: SizedBox(
@@ -51,10 +65,10 @@ class _BodyState extends State<Body> {
                           textAlign: TextAlign.center,
                           style: TextStyle(color: _background[2]),
                           cursorColor: _background[1],
-                          controller: _cityTextController,
+                          controller: cityTextController,
                           decoration: InputDecoration(
                             hintText: 'Ciudad',
-                            hintStyle: TextStyle(color: Colors.black),
+                            hintStyle: TextStyle(color: _background[2]),
                             border: OutlineInputBorder(),
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: _background[1])),
@@ -86,10 +100,10 @@ class _BodyState extends State<Body> {
                                   ? await DatabaseHelper.instance.update(
                                       Cities(
                                           id: selectedId,
-                                          name: _cityTextController.text),
+                                          name: cityTextController.text),
                                     )
                                   : await DatabaseHelper.instance.add(
-                                      Cities(name: _cityTextController.text),
+                                      Cities(name: cityTextController.text),
                                     );
                               fav = _fav(fav);
                             },
@@ -173,10 +187,10 @@ class _BodyState extends State<Body> {
   }
 
   void _search() async {
-    final response = await _dataService.getWeather(_cityTextController.text);
+    final __response = await dataService.getWeather(cityTextController.text);
     setState(
       () {
-        _response = response;
+        _response = __response;
         _background = getBackgroundColor(_response.weatherInfo.icon);
       },
     );

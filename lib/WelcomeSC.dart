@@ -1,18 +1,16 @@
+import 'package:day11_weather_app/auw.dart';
 import 'package:flutter/material.dart';
 
-import 'DB.dart';
-//import 'body.dart';
-/*
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Body(),
+      body: BodyD(),
     );
   }
 }
-*/
 
+/*
 // ignore: must_be_immutable
 class WelcomeScreen extends StatelessWidget {
   List<Color> _background = [Colors.blue, Colors.yellow.shade600, Colors.black];
@@ -61,3 +59,4 @@ class WelcomeScreen extends StatelessWidget {
     );
   }
 }
+*/
